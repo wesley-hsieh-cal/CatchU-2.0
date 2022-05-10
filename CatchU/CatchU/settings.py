@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Post.apps.PostConfig',
-    'Forum.apps.ForumConfig',
-    'Profile.apps.ProfileConfig',
+    'posts.apps.PostsConfig',
+    'forums.apps.ForumsConfig',
+    'profiles.apps.ProfilesConfig',
     'rest_framework',
 ]
 
