@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import generics
 
-# Receive a request and return a response
-def main(request):
-    return HttpResponse("<h1>Hello<h1>")
+from .models import Post
+from .serializers import PostSerializer
+
+class PostView(generics.ListAPIView): # View is set up to return all different Posts
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer

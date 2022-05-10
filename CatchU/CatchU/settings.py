@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'forums.apps.ForumsConfig',
     'profiles.apps.ProfilesConfig',
+    'frontend.apps.FrontendConfig',
     'rest_framework',
 ]
 
