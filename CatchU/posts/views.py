@@ -21,11 +21,14 @@ class CreatePostView(APIView):
     def post(self, request, format=None):
         if not self.request.session.exists(self.request.session.session_key):
             self.request.session.create()
-        
-        data = request.data
-        serializer = self.serializer_class(data=data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(user=request.user)
-            return Response(serializer.data, status=201)
+
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            title = serializer.data.get('title')
+            content = serializer.data.get('content')
+            image = serializer.data.get('image')
+            post = Post(user=request.user, title=title, content=content, image=image)
+            post.save()
+            return Response(PostSerializer(post).data, status=201)
         return Response({}, status=400)
             
