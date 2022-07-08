@@ -19,5 +19,3 @@ class ProfileModifySerializer(APIView):
     def get(self, request):
         return Response("Data to be returned.")
     
-    # def post(self, request, format=None):
-        

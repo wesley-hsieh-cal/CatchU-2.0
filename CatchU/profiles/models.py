@@ -12,3 +12,4 @@ class Profile(models.Model):
     introduction = models.TextField(max_length = 200, blank=True, null=True)
     image = models.FileField(upload_to='images/', blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    
