@@ -6,7 +6,7 @@ class ProfileSerializer(serializers.ModelSerialize):
         model = Profile
         fields = ('id', 'username', 'image', 'introduction')
         
-class ModifyProfileSerializer(serializers.ModelSerialize):
+class ProfileModifySerializer(serializers.ModelSerialize):
     class Meta:
         model = Profile
         fields = ('image', 'introduction')
