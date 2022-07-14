@@ -9,8 +9,8 @@ from .serializers import PostSerializer, CreatePostSerializer
 
 
 class PostView(generics.ListAPIView): # View is set up to return all different Posts
-    queryset = Post.objects.all()
     serializer_class = PostSerializer
+    queryset = Post.objects.all()
     
 class CreatePostView(APIView):
     serializer_class = CreatePostSerializer
