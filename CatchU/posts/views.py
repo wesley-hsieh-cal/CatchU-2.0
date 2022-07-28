@@ -3,14 +3,13 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-
 from .models import Post
 from .serializers import PostSerializer, CreatePostSerializer
 
 
 class PostView(generics.ListAPIView): # View is set up to return all different Posts
-    queryset = Post.objects.all()
     serializer_class = PostSerializer
+    queryset = Post.objects.all()
     
 class CreatePostView(APIView):
     serializer_class = CreatePostSerializer

@@ -17,12 +17,18 @@ class Post(models.Model):
     image: The image that people could update. It should be optional. Maybe make it in the future #TODO
     likes: The number of people that like this posts. One person/account can only like once. Maybe people can like or dislike 
            (can only like or dislike a post) -> allow negative numbers of likes
-    timestamp: When did the post be created
+    created_at: When did the post be created
+    updated_at: when did the post be updated
     category: The category/forums this post belongs to. Maybe make it in the fututre #TODO
     '''
     user = models.ForeignKey(User, on_delete=models.CASCADE) # many users can have many posts
     title = models.TextField(null=True, max_length=100)
-    content = models.TextField(blank=True, null=True)
+    content = models.TextField(blank=True, null=True, max_length=5000)
     image = models.FileField(upload_to='images/', blank=True, null=True)
     likes = models.ManyToManyField(User, related_name='post_user', blank=True, through=PostLike)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    def _str_(self):
+        return self.title
+
