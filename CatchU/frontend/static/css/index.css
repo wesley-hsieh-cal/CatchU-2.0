@@ -19,3 +19,11 @@ body {
     height: 100%;
     display: flex;
 }
+
+.postTitle h1 {
+    color: blue; /* or hexidecimal */
+ }
+
+.postContent h2 {
+    color: red;
+}

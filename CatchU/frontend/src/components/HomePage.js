@@ -14,19 +14,20 @@ export default class HomePage extends Component {
     this.state = {
       content: [],
     };
-    this.fetchContents = this.fetchContents.bind(this)
+    this.fetchContents = this.fetchContents.bind(this);
   }
 
-  componentWillMount(){
-    this.fetchContents()
+  async componentDidMount() {
+    this.fetchContents();
   }
-  component
+  component;
 
   fetchContents() {
-    console.log("Fetching...")
-    fetch("http://127.0.0.1:8000/post/")
+    let data;
+    console.log("Fetching...");
+    fetch("/api/post/")
       .then((response) => response.json())
-      .then(data => {
+      .then((data) => {
         this.setState({
           content: data,
         });
@@ -50,7 +51,7 @@ export default class HomePage extends Component {
                   variant="contained"
                   color="primary"
                 >
-                  <Button color="primary" to="/frontend/" component={Link}>
+                  <Button color="primary" to="/post/" component={Link}>
                     Posts
                   </Button>
                   <Button color="secondary" to="/profile/" component={Link}>
@@ -60,7 +61,26 @@ export default class HomePage extends Component {
               </Grid>
             </Grid>
           </Route>
-          <Route exact path="/frontend/">
+          <Route exact path="/post/">
+            <Grid container spacing={3}>
+              <Grid item xs={12} align="center">
+                <Typography variant="h5" compact="h3">
+                  {this.state.content.map((detail) => (
+                    <div class="postTitle">
+                      <h1>{detail.title}</h1>
+                      <div class="postContent">
+                        <h2 >{detail.content}</h2>
+                        <div class="postTime">
+                          <h3 >{detail.created_at}</h3>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Route>
+          <Route exact path="/profile/">
             <p>Hello</p>
           </Route>
         </Switch>
