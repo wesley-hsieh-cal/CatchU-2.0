@@ -1,0 +1,31 @@
+.navbar-container {
+  overflow: hidden;
+  background-color: rgb(42, 171, 74);
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-container input[type="text"] {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}
+
+.navbar-container a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar-container a:hover {
+  background-color: #ddd;
+  color: black;
+}
