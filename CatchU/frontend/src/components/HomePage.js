@@ -22,12 +22,12 @@ import React from "react";
 import Navbar from "./navbar/index";
 
 const HomePage = () => {
-    return (
-        <div>
-        <Navbar />
-        <p>This is the HomePage of CatchU ogogog</p>
-        </div>
-    );
-}
+  return (
+    <div>
+      <Navbar />
+      <p>This is the HomePage of CatchU ogogog</p>
+    </div>
+  );
+};
 
 export default HomePage;
