@@ -7,6 +7,7 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
+import axios from "axios";
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -24,15 +25,47 @@ export default class HomePage extends Component {
 
   fetchContents() {
     let data;
-    console.log("Fetching...");
-    fetch("/api/post/")
-      .then((response) => response.json())
-      .then((data) => {
+
+    // fetch("/api/post/")
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     this.setState({
+    //       content: data,
+    //     });
+    //   });
+    axios
+      .get("/api/post/")
+      .then((res) => {
+        data = res.data;
         this.setState({
           content: data,
         });
-      });
+      })
+      .catch((err) => {});
   }
+
+  handleInput = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+    
+  };
+
+  handleSumbit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("/api/post/", {
+        detail: this.state.content,
+      })
+      .then((res) => {
+        this.setState({
+          content: "",
+        });
+      })
+      .catch((err) => {});
+      
+  };
 
   render() {
     return (
@@ -64,14 +97,38 @@ export default class HomePage extends Component {
           <Route exact path="/post/">
             <Grid container spacing={3}>
               <Grid item xs={12} align="center">
-                <Typography variant="h5" compact="h3">
+                <Typography variant="h6" compact="h3">
+                  <form onSubmit={this.handleSubmit} id="form">
+                    <div className="input-group mb-3">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon1">
+                          {" "}
+                          Content{" "}
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Type..."
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                        value={this.state.detail}
+                        // name="content"
+                        onChange={this.handleInput}
+                      />
+                    </div>
+
+                    <button type="submit" className="btn btn-primary mb-5">
+                      Submit
+                    </button>
+                  </form>
                   {this.state.content.map((detail) => (
                     <div class="postTitle">
-                      <h1>{detail.title}</h1>
+                      <h1>{detail.id}</h1>
                       <div class="postContent">
-                        <h2 >{detail.content}</h2>
+                        <h2>{detail.title}</h2>
                         <div class="postTime">
-                          <h3 >{detail.created_at}</h3>
+                          <h3>{detail.content}</h3>
                         </div>
                       </div>
                     </div>
