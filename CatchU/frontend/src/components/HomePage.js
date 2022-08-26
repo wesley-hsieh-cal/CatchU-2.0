@@ -10,35 +10,21 @@ import {
 import axios from "axios";
 
 export default class HomePage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      content: [],
-    };
-    this.fetchContents = this.fetchContents.bind(this);
-  }
+  state = {
+    details: [],
+    postTitle: "",
+    postContent: "",
+  };
 
-  async componentDidMount() {
-    this.fetchContents();
-  }
-  component;
-
-  fetchContents() {
+  componentDidMount() {
     let data;
 
-    // fetch("/api/post/")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     this.setState({
-    //       content: data,
-    //     });
-    //   });
     axios
-      .get("/api/post/")
+      .get("http://localhost:8000/api/post/")
       .then((res) => {
         data = res.data;
         this.setState({
-          content: data,
+          details: data,
         });
       })
       .catch((err) => {});
@@ -48,23 +34,23 @@ export default class HomePage extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
-    
   };
 
   handleSumbit = (e) => {
     e.preventDefault();
 
     axios
-      .post("/api/post/", {
-        detail: this.state.content,
+      .post("http://localhost:8000/api/post/", {
+        title: this.state.postTitle,
+        content: this.state.postContent,
       })
       .then((res) => {
         this.setState({
-          content: "",
+          postTitle: "",
+          postContent: "",
         });
       })
       .catch((err) => {});
-      
   };
 
   render() {
@@ -98,12 +84,12 @@ export default class HomePage extends Component {
             <Grid container spacing={3}>
               <Grid item xs={12} align="center">
                 <Typography variant="h6" compact="h3">
-                  <form onSubmit={this.handleSubmit} id="form">
+                  <form onSubmit={this.handleSubmit}>
                     <div className="input-group mb-3">
                       <div className="input-group-prepend">
                         <span className="input-group-text" id="basic-addon1">
                           {" "}
-                          Content{" "}
+                          Title{" "}
                         </span>
                       </div>
                       <input
@@ -112,23 +98,41 @@ export default class HomePage extends Component {
                         placeholder="Type..."
                         aria-label="Username"
                         aria-describedby="basic-addon1"
-                        value={this.state.detail}
-                        // name="content"
+                        defaultValue={this.state.postTitle}
+                        name="postTitle"
                         onChange={this.handleInput}
                       />
+                    </div>
+
+                    <div className="input-group mb-3">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">Content</span>
+                      </div>
+                      <textarea
+                        className="form-control "
+                        aria-label="With textarea"
+                        placeholder="Type..."
+                        defaultValue={this.state.postContent}
+                        name="postContent"
+                        onChange={this.handleInput}
+                      ></textarea>
                     </div>
 
                     <button type="submit" className="btn btn-primary mb-5">
                       Submit
                     </button>
                   </form>
-                  {this.state.content.map((detail) => (
+                  {this.state.details.map((detail) => (
                     <div class="postTitle">
                       <h1>{detail.id}</h1>
                       <div class="postContent">
                         <h2>{detail.title}</h2>
                         <div class="postTime">
                           <h3>{detail.content}</h3>
+                          <footer>
+                            --- at
+                            <cite>{detail.created_at}</cite>
+                          </footer>
                         </div>
                       </div>
                     </div>
